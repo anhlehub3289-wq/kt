@@ -34,11 +34,11 @@ st.markdown("""
             text-align: center;
         }
         .metric-card {
-            padding: 1.5rem;
+            padding: 1.2rem;
             border-radius: 0.5rem;
             box-shadow: 0 4px 6px rgba(0,0,0,0.05);
             text-align: center;
-            min-height: 140px;
+            min-height: 130px;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -62,18 +62,22 @@ st.markdown("""
             border-left: 6px solid #475569;
         }
 
+        /* Giảm cỡ chữ giá trị số để không bị rớt dòng */
         .metric-value {
-            font-size: 1.8rem;
+            font-size: 1.55rem;
             font-weight: 700;
             color: #1F2937;
             line-height: 1.2;
+            white-space: nowrap; /* Giữ số tiền trên cùng một dòng */
         }
+        /* Điều chỉnh nhẹ cỡ chữ của nhãn tiêu đề */
         .metric-label {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: #4B5563;
             text-transform: uppercase;
             font-weight: 600;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.6rem;
+            letter-spacing: 0.5px;
         }
         .stTabs [data-baseweb="tab"] {
             font-size: 1.1rem;
