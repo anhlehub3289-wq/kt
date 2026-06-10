@@ -8,7 +8,7 @@ import io
 
 # Cấu hình trang Streamlit
 st.set_page_config(
-    page_title="Hệ thống Phát hiện Giao dịch Bất thường",
+    page_title="Hệ thống phát hiện giao dịch bất thường trong kiểm toán nội bộ",
     page_icon="🏦",
     layout="wide",
     initial_sidebar_state="expanded"
