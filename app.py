@@ -8,7 +8,7 @@ import io
 
 # Cấu hình trang Streamlit
 st.set_page_config(
-    page_title="Hệ thống phát hiện bất thường trong kiểm toán nội bộ",
+    page_title="Hệ thống Phát hiện Giao dịch Bất thường",
     page_icon="🏦",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -34,22 +34,46 @@ st.markdown("""
             text-align: center;
         }
         .metric-card {
-            background-color: white;
             padding: 1.5rem;
             border-radius: 0.5rem;
             box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            border-left: 5px solid #2563EB;
             text-align: center;
+            min-height: 140px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
+        
+        /* Màu nền và viền tùy chỉnh cho từng ô */
+        .card-tong-gd {
+            background-color: #E0F2FE;
+            border-left: 6px solid #0284C7;
+        }
+        .card-tong-tien {
+            background-color: #FEF3C7;
+            border-left: 6px solid #D97706;
+        }
+        .card-ngoai-gio {
+            background-color: #FEE2E2;
+            border-left: 6px solid #DC2626;
+        }
+        .card-nhan-vien {
+            background-color: #E2E8F0;
+            border-left: 6px solid #475569;
+        }
+
         .metric-value {
             font-size: 1.8rem;
             font-weight: 700;
             color: #1F2937;
+            line-height: 1.2;
         }
         .metric-label {
             font-size: 0.9rem;
-            color: #6B7280;
+            color: #4B5563;
             text-transform: uppercase;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
         }
         .stTabs [data-baseweb="tab"] {
             font-size: 1.1rem;
@@ -169,16 +193,16 @@ if df_raw is not None:
         off_hours_txns = df[(df['gio_giao_dich'] < 6) | (df['gio_giao_dich'] > 18)].shape[0]
         emp_txns = df[df['is_employee'] == True].shape[0]
 
-        # Hiển thị Metric Cards
+        # Hiển thị Metric Cards với màu nền phân loại trực quan
         col1, col2, col3, col4 = st.columns(4)
         with col1:
-            st.markdown(f'<div class="metric-card"><div class="metric-label">Tổng giao dịch</div><div class="metric-value">{total_txns:,}</div></div>', unsafe_allow_html=True)
+            st.markdown(f'<div class="metric-card card-tong-gd"><div class="metric-label">Tổng giao dịch</div><div class="metric-value">{total_txns:,}</div></div>', unsafe_allow_html=True)
         with col2:
-            st.markdown(f'<div class="metric-card"><div class="metric-label">Tổng tiền (VND)</div><div class="metric-value">{total_amount:,.0f}</div></div>', unsafe_allow_html=True)
+            st.markdown(f'<div class="metric-card card-tong-tien"><div class="metric-label">Tổng tiền (VND)</div><div class="metric-value">{total_amount:,.0f}</div></div>', unsafe_allow_html=True)
         with col3:
-            st.markdown(f'<div class="metric-card"><div class="metric-label">Giao dịch ngoài giờ</div><div class="metric-value">{off_hours_txns:,}</div></div>', unsafe_allow_html=True)
+            st.markdown(f'<div class="metric-card card-ngoai-gio"><div class="metric-label">Giao dịch ngoài giờ</div><div class="metric-value">{off_hours_txns:,}</div></div>', unsafe_allow_html=True)
         with col4:
-            st.markdown(f'<div class="metric-card"><div class="metric-label">GD từ Nhân viên</div><div class="metric-value">{emp_txns:,}</div></div>', unsafe_allow_html=True)
+            st.markdown(f'<div class="metric-card card-nhan-vien"><div class="metric-label">GD từ Nhân viên</div><div class="metric-value">{emp_txns:,}</div></div>', unsafe_allow_html=True)
 
         st.write("---")
         
@@ -281,13 +305,13 @@ if df_raw is not None:
             
             col_r1, col_r2, col_r3, col_r4 = st.columns(4)
             with col_r1:
-                st.markdown(f'<div class="metric-card" style="border-left-color: #7F1D1D;"><div class="metric-label">🚨 Rủi ro khẩn cấp</div><div class="metric-value">{risk_counts.get("Rủi ro khẩn cấp", 0)}</div></div>', unsafe_allow_html=True)
+                st.markdown(f'<div class="metric-card" style="border-left-color: #7F1D1D; background-color: #FEE2E2;"><div class="metric-label" style="color: #7F1D1D;">🚨 Rủi ro khẩn cấp</div><div class="metric-value" style="color: #7F1D1D;">{risk_counts.get("Rủi ro khẩn cấp", 0)}</div></div>', unsafe_allow_html=True)
             with col_r2:
-                st.markdown(f'<div class="metric-card" style="border-left-color: #DC2626;"><div class="metric-label">⚠️ Rủi ro cao</div><div class="metric-value">{risk_counts.get("Rủi ro cao", 0)}</div></div>', unsafe_allow_html=True)
+                st.markdown(f'<div class="metric-card" style="border-left-color: #DC2626; background-color: #FFEDD5;"><div class="metric-label" style="color: #9A3412;">⚠️ Rủi ro cao</div><div class="metric-value" style="color: #9A3412;">{risk_counts.get("Rủi ro cao", 0)}</div></div>', unsafe_allow_html=True)
             with col_r3:
-                st.markdown(f'<div class="metric-card" style="border-left-color: #D97706;"><div class="metric-label">🔔 Rủi ro trung bình</div><div class="metric-value">{risk_counts.get("Rủi ro trung bình", 0)}</div></div>', unsafe_allow_html=True)
+                st.markdown(f'<div class="metric-card" style="border-left-color: #D97706; background-color: #FEF3C7;"><div class="metric-label" style="color: #92400E;">🔔 Rủi ro trung bình</div><div class="metric-value" style="color: #92400E;">{risk_counts.get("Rủi ro trung bình", 0)}</div></div>', unsafe_allow_html=True)
             with col_r4:
-                st.markdown(f'<div class="metric-card" style="border-left-color: #10B981;"><div class="metric-label">💡 Rủi ro thấp</div><div class="metric-value">{risk_counts.get("Rủi ro thấp", 0)}</div></div>', unsafe_allow_html=True)
+                st.markdown(f'<div class="metric-card" style="border-left-color: #10B981; background-color: #D1FAE5;"><div class="metric-label" style="color: #065F46;">💡 Rủi ro thấp</div><div class="metric-value" style="color: #065F46;">{risk_counts.get("Rủi ro thấp", 0)}</div></div>', unsafe_allow_html=True)
                 
             st.write("---")
             
