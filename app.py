@@ -138,7 +138,7 @@ def load_data(file_source):
         return None
 
 # ================= TIÊU ĐỀ CHÍNH (LUÔN HIỂN THỊ) =================
-st.markdown('<div class="main-header">🏦 HỆ THỐNG PHÁT HIỆN GIAO DỊCH BẤT THƯỜNG</div>', unsafe_allow_html=True)
+st.markdown('<div class="main-header">🏦 HỆ THỐNG PHÁT HIỆN GIAO DỊCH BẤT THƯỜNG AGRIBANK</div>', unsafe_allow_html=True)
 
 # Phân tích luồng dữ liệu đầu vào
 if uploaded_file is not None:
